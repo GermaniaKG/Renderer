@@ -1,0 +1,41 @@
+{
+	"name":        "germania-kg/renderer",
+
+	"type":        "library",
+	"license":     "proprietary",
+
+	"authors": [
+		{
+			"name":  "Carsten Witt",
+			"email": "carstenwitt@germania-kg.de",
+			"role":  "Developer"
+		}
+	],
+
+	"autoload": {
+			"psr-4": {
+					"Germania\\Renderer\\": "src/"
+			}
+	},
+
+  "autoload-dev": {
+      "psr-4": { "tests\\": "tests/src" }
+  },
+
+  "suggest": {
+      "smarty/smarty": "Just in case you missed it in your projects."
+  },
+
+	"require": {
+		"psr/log": "^1.1"
+	},
+
+	"require-dev": {
+		"satooshi/php-coveralls": "^1.0",
+		"phpunit/phpunit": "^5.2",
+		"smarty/smarty": "^3.1"
+	}
+
+
+
+}
