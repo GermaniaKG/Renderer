@@ -11,14 +11,22 @@ class PhpRenderer implements RendererInterface {
      */
     public $logger;
 
+    /**
+     * @var string
+     */
+    public $base_path;
+
 
     /**
+     * @param string|null          $base_path Optional: Base path. Defaults to PHP's getcwd()'.
      * @param LoggerInterface|null $logger Optional: PSR-3 Logger
      */
-    public function __construct ( LoggerInterface $logger = null )
+    public function __construct ( $base_path = null, LoggerInterface $logger = null )
     {
-        $this->logger = $logger ?: new NullLogger;
+        $this->base_path = $base_path ?: getcwd();
+        $this->logger    = $logger    ?: new NullLogger;
     }
+
 
     /**
      * Returns parsed template output.
@@ -38,9 +46,14 @@ class PhpRenderer implements RendererInterface {
             'callback' => $callback ?: "(not set)"
         ]);
 
+
+
         $error = false;
 
-        if (is_readable( $inc )):
+        // Build path based on base path
+        $path = $this->buildPath( $inc );
+
+        if (is_readable( $path )):
 
             $this->logger->debug("Extract variables to include scope", $context);
             extract( $context );
@@ -49,18 +62,18 @@ class PhpRenderer implements RendererInterface {
             ob_start( $callback );
 
             $this->logger->debug("Include file " . $inc);
-            include $inc;
+            include $path;
 
-            $this->logger->info("Return rendered PHP output", [
+            $this->logger->info("Return rendered include file output", [
                 'content_length' => ob_get_length()
             ]);
 
             return ob_get_clean();
 
-        elseif (!is_file($inc)):
-            $error  = "PhpRenderer: Include file does not exist: " . ($inc ?: "(none)");
+        elseif (!is_file($path)):
+            $error  = "PhpRenderer: Include file does not exist: " . ($path ?: "(none)");
         else:
-            $error = "PhpRenderer: Include file not readable: " . ($inc ?: "(none)");
+            $error = "PhpRenderer: Include file not readable: " . ($path ?: "(none)");
         endif;
 
 
@@ -69,5 +82,18 @@ class PhpRenderer implements RendererInterface {
             throw new \RuntimeException( $error );
         endif;
 
+    }
+
+
+    /**
+     * @param  string $inc The file to locate
+     * @return string      Full path
+     */
+    public function buildPath( $inc )
+    {
+        return realpath(join(\DIRECTORY_SEPARATOR, [
+            $this->base_path,
+            $inc
+        ]));
     }
 }
