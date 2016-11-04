@@ -41,14 +41,15 @@ class PhpRenderer implements RendererInterface {
      */
     public function __invoke( $inc, array $context = array(), Callable $callback = null)
     {
-        $this->logger->info("Render PHP include: " . $inc, [
-            'context'  => $context,
-            'callback' => $callback ?: "(not set)"
+        $this->logger->info("Render include file: " . $inc, [
+            'context'   => $context,
+            'callback'  => $callback ?: "(not set)",
+            'base_path' => $this->base_path
         ]);
 
 
-
-        $error = false;
+        // Blank message
+        $error_message = false;
 
         // Build path based on base path
         $path = $this->buildPath( $inc );
@@ -71,15 +72,14 @@ class PhpRenderer implements RendererInterface {
             return ob_get_clean();
 
         elseif (!is_file($path)):
-            $error  = "PhpRenderer: Include file does not exist: " . ($path ?: "(none)");
+            $error_message  = "PhpRenderer: Include file does not exist: " . ($path ?: "(none)");
         else:
-            $error = "PhpRenderer: Include file not readable: " . ($path ?: "(none)");
+            $error_message = "PhpRenderer: Include file not readable: " . ($path ?: "(none)");
         endif;
 
-
-        if (!empty($error) and is_string( $error )):
-            $this->logger->error( $error );
-            throw new \RuntimeException( $error );
+        if (!empty($error_message) and is_string( $error_message )):
+            $this->logger->error( $error_message );
+            throw new \RuntimeException( $error_message );
         endif;
 
     }
