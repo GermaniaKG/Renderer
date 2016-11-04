@@ -11,14 +11,22 @@ class PhpRenderer implements RendererInterface {
      */
     public $logger;
 
+    /**
+     * @var string
+     */
+    public $base_path;
+
 
     /**
+     * @param string|null          $base_path Optional: Base path. Defaults to PHP's getcwd()'.
      * @param LoggerInterface|null $logger Optional: PSR-3 Logger
      */
-    public function __construct ( LoggerInterface $logger = null )
+    public function __construct ( $base_path = null, LoggerInterface $logger = null )
     {
-        $this->logger = $logger ?: new NullLogger;
+        $this->base_path = $base_path ?: getcwd();
+        $this->logger    = $logger    ?: new NullLogger;
     }
+
 
     /**
      * Returns parsed template output.
@@ -33,14 +41,20 @@ class PhpRenderer implements RendererInterface {
      */
     public function __invoke( $inc, array $context = array(), Callable $callback = null)
     {
-        $this->logger->info("Render PHP include: " . $inc, [
-            'context'  => $context,
-            'callback' => $callback ?: "(not set)"
+        $this->logger->info("Render PHP include file: " . $inc, [
+            'context'   => $context,
+            'callback'  => $callback ?: "(not set)",
+            'base_path' => $this->base_path
         ]);
 
-        $error = false;
 
-        if (is_readable( $inc )):
+        // Blank message
+        $error_message = false;
+
+        // Build path based on base path
+        $path = $this->buildPath( $inc );
+
+        if (is_readable( $path )):
 
             $this->logger->debug("Extract variables to include scope", $context);
             extract( $context );
@@ -48,26 +62,38 @@ class PhpRenderer implements RendererInterface {
             $this->logger->debug("Start output buffer");
             ob_start( $callback );
 
-            $this->logger->debug("Include file " . $inc);
-            include $inc;
+            $this->logger->debug("Include PHP file " . $inc);
+            include $path;
 
-            $this->logger->info("Return rendered PHP output", [
+            $this->logger->info("Return rendered include file output", [
                 'content_length' => ob_get_length()
             ]);
 
             return ob_get_clean();
 
-        elseif (!is_file($inc)):
-            $error  = "PhpRenderer: Include file does not exist: " . ($inc ?: "(none)");
+        elseif (!is_file($path)):
+            $error_message  = "PhpRenderer: Include file does not exist: " . ($path ?: "(none)");
         else:
-            $error = "PhpRenderer: Include file not readable: " . ($inc ?: "(none)");
+            $error_message = "PhpRenderer: Include file not readable: " . ($path ?: "(none)");
         endif;
 
-
-        if (!empty($error) and is_string( $error )):
-            $this->logger->error( $error );
-            throw new \RuntimeException( $error );
+        if (!empty($error_message) and is_string( $error_message )):
+            $this->logger->error( $error_message );
+            throw new \RuntimeException( $error_message );
         endif;
 
+    }
+
+
+    /**
+     * @param  string $inc The file to locate
+     * @return string      Full path
+     */
+    public function buildPath( $inc )
+    {
+        return realpath(join(\DIRECTORY_SEPARATOR, [
+            $this->base_path,
+            $inc
+        ]));
     }
 }

@@ -7,7 +7,7 @@ interface RendererInterface
      * Returns parsed template output.
      *
      * @param  string $template The template file
-     * @param  array  $context  Associative tempalte variables array
+     * @param  array  $context  Associative template variables array
      *
      * @return string Template output
      */
