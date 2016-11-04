@@ -41,7 +41,7 @@ class PhpRenderer implements RendererInterface {
      */
     public function __invoke( $inc, array $context = array(), Callable $callback = null)
     {
-        $this->logger->info("Render include file: " . $inc, [
+        $this->logger->info("Render PHP include file: " . $inc, [
             'context'   => $context,
             'callback'  => $callback ?: "(not set)",
             'base_path' => $this->base_path
@@ -62,7 +62,7 @@ class PhpRenderer implements RendererInterface {
             $this->logger->debug("Start output buffer");
             ob_start( $callback );
 
-            $this->logger->debug("Include file " . $inc);
+            $this->logger->debug("Include PHP file " . $inc);
             include $path;
 
             $this->logger->info("Return rendered include file output", [
