@@ -11,7 +11,7 @@ $ composer require germania-kg/renderer
 ```
 
 ##Usage
-Both classes **PhpRenderer** and **SmartyRenderer** implement the **RendererInterface**:
+All classes **PhpRenderer, TwigRenderer** and **SmartyRenderer** implement the **RendererInterface**:
 
 ```php
 
@@ -44,6 +44,23 @@ $php = new PhpRenderer( '/path/to/includes', $logger );
 
 // Pass file name and variable context:
 echo $php('myinc.php', [
+	'foo'  => 'bar',
+	'user' => $container->get('var')
+]);
+```
+
+
+##TwigRenderer
+```php
+<?php
+use Germania\Renderer\TwigRenderer;
+
+// Have your Twig_Environment at hand;
+// Logger is optional.
+$render_twig = new TwigRenderer( $twig, $logger ) ;
+
+// Pass file name and variable context:
+echo $render_twig('mytwig.tpl', [
 	'foo'  => 'bar',
 	'user' => $container->get('var')
 ]);
