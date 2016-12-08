@@ -23,6 +23,7 @@
   },
 
   "suggest": {
+      "twig/twig": "The template engine of choice.",
       "smarty/smarty": "Just in case you missed it in your projects."
   },
 
@@ -33,7 +34,8 @@
 	"require-dev": {
 		"satooshi/php-coveralls": "^1.0",
 		"phpunit/phpunit": "^5.2",
-		"smarty/smarty": "^3.1"
+		"smarty/smarty": "^3.1",
+		"twig/twig": "^1.28"
 	}
 
 
