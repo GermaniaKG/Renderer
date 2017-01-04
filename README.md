@@ -40,6 +40,7 @@ use Germania\Renderer\PhpRenderer;
 // Base path defaults to PHP's getcwd()
 $php = new PhpRenderer;
 $php = new PhpRenderer( '/path/to/includes' );
+$php = new PhpRenderer( array('/path/to/includes', '/another/path') );
 $php = new PhpRenderer( '/path/to/includes', $logger );
 
 // Pass file name and variable context:
