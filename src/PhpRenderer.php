@@ -12,18 +12,24 @@ class PhpRenderer implements RendererInterface {
     public $logger;
 
     /**
-     * @var string
+     * @var string[]
      */
     public $base_path;
 
 
     /**
-     * @param string|null          $base_path Optional: Base path. Defaults to PHP's getcwd()'.
+     * @param string|string[]|null $base_path Optional: Base path. Defaults to PHP's getcwd()'.
      * @param LoggerInterface|null $logger Optional: PSR-3 Logger
      */
     public function __construct ( $base_path = null, LoggerInterface $logger = null )
     {
-        $this->base_path = $base_path ?: getcwd();
+
+        if (is_string($base_path) or !$base_path):
+            $this->base_path = array($base_path ?: getcwd());
+        else:
+            $this->base_path = $base_path;
+        endif;
+
         $this->logger    = $logger    ?: new NullLogger;
     }
 
@@ -71,6 +77,8 @@ class PhpRenderer implements RendererInterface {
 
             return ob_get_clean();
 
+        elseif ($path === false):
+            $error_message  = "PhpRenderer: Could not find include in any base path.";
         elseif (!is_file($path)):
             $error_message  = "PhpRenderer: Include file does not exist: " . ($path ?: "(none)");
         else:
@@ -91,9 +99,12 @@ class PhpRenderer implements RendererInterface {
      */
     public function buildPath( $inc )
     {
-        return realpath(join(\DIRECTORY_SEPARATOR, [
-            $this->base_path,
-            $inc
-        ]));
+        foreach($this->base_path as $path):
+            if ($file = realpath(join(\DIRECTORY_SEPARATOR, [$path, $inc ]))) {
+                return $file;
+            }
+        endforeach;
+
+        return false;
     }
 }
