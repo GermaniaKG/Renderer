@@ -1,16 +1,16 @@
-#Germania\Renderer
+# Germania\Renderer
 
 **This package was destilled from legacy code!**   
 You better do not want it to use this in production.
 
 
-##Installation
+## Installation
 
 ```bash
 $ composer require germania-kg/renderer
 ```
 
-##Usage
+## Usage
 All classes **PhpRenderer, TwigRenderer** and **SmartyRenderer** implement the **RendererInterface**:
 
 ```php
@@ -27,7 +27,7 @@ interface RendererInterface {
 
 
 
-##PhpRenderer
+## PhpRenderer
 
 This *RendererInterface* implentation will include a PHP file, using output buffering.
 Passed context variables are extracted to *__invoke* method scope und thus are locally available inside the PHP include file.
@@ -51,7 +51,7 @@ echo $php('myinc.php', [
 ```
 
 
-##TwigRenderer
+## TwigRenderer
 ```php
 <?php
 use Germania\Renderer\TwigRenderer;
@@ -67,7 +67,7 @@ echo $render_twig('mytwig.tpl', [
 ]);
 ```
 
-##SmartyRenderer
+## SmartyRenderer
 ```php
 <?php
 use Germania\Renderer\SmartyRenderer;
@@ -86,7 +86,7 @@ echo $render_smarty('mysmarty.tpl', [
 
 
 
-##Development and Testing
+## Development and Testing
 
 Develop using `develop` branch, using [Git Flow](https://github.com/nvie/gitflow).   
 **Currently, no tests are specified.**
