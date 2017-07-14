@@ -84,7 +84,7 @@ class PhpRenderer implements RendererInterface {
                 ]);
 
                 if ($echo_result = ob_get_clean()):
-                    $this->logger->debug("Append output buffer content to ResponseInterface instance", [
+                    $this->logger->warning("Include file should not fill output buffer (echo et.al.) when returning ResponseInterface instance. To avoid data loss, content from output buffer is appended to ResponseInterface instance's body stream.", [
                         'file' => $inc,
                         'content_length' => $content_length
                     ]);
