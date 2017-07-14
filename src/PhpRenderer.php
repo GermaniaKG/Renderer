@@ -3,6 +3,7 @@ namespace Germania\Renderer;
 
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\NullLogger;
+use Psr\Http\Message\ResponseInterface;
 
 class PhpRenderer implements RendererInterface {
 
@@ -41,7 +42,7 @@ class PhpRenderer implements RendererInterface {
      * @param  array    $context  Associative tempalte variables array
      * @param  Callable $callable Optional Callback handler for output buffering
      *
-     * @return string   Template output
+     * @return string|ResponseInterface   Template output or ResponseInterface instance
      *
      * @throws RuntimeException when include file is not readable somehow.
      */
@@ -69,12 +70,43 @@ class PhpRenderer implements RendererInterface {
             ob_start( $callback );
 
             $this->logger->debug("Include PHP file " . $inc);
-            include $path;
+            $result = include $path;
 
-            $this->logger->info("Return rendered include file output", [
-                'content_length' => ob_get_length()
+
+            $content_length = ob_get_length();
+
+
+            if ($result instanceOf ResponseInterface):
+
+                $this->logger->debug("Included PHP file returned ResponseInterface instance", [
+                    'file' => $inc,
+                    'ResponseInterface' => get_class( $result )
+                ]);
+
+                if ($echo_result = ob_get_clean()):
+                    $this->logger->debug("Append output buffer content to ResponseInterface instance", [
+                        'file' => $inc,
+                        'content_length' => $content_length
+                    ]);
+                    $result->getBody()->write( $echo_result );
+                endif;
+
+
+                // Return ResponseInterface
+                $this->logger->info("Return ResponseInterface instance", [
+                    'file' => $inc,
+                    'ResponseInterface' => get_class( $result )
+                ]);
+                return $result;
+            endif;
+
+
+
+            // Return string
+            $this->logger->info("Return include file output from output buffer", [
+                'file' => $inc,
+                'content_length' => $content_length
             ]);
-
             return ob_get_clean();
 
         elseif ($path === false):
