@@ -50,6 +50,31 @@ echo $php('myinc.php', [
 ]);
 ```
 
+### PSR-7 HTTP Messages
+
+If the include file itselfs returns a [PSR-7 ResponseInterface](http://www.php-fig.org/psr/psr-7/), the *PhpRenderer* will return this *ResponseInterface* instance.
+
+```php
+<?php
+// myinc.php
+return $response;
+```
+```php
+<?php
+use Psr\Http\Message\ResponseInterface;
+
+$render = new PhpRenderer;
+
+$result = $render('myinc.php', [
+	'response' => new GuzzleHttp\Psr7\Response
+]);
+
+echo $result instanceOf ResponseInterface
+? $result->getBody()
+: $result;
+```
+
+
 
 ## TwigRenderer
 ```php
