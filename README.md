@@ -110,6 +110,34 @@ echo $render_smarty('mysmarty.tpl', [
 ```
 
 
+## RenderedMarkdownRenderer
+
+Sometimes it is useful to 'process' a markdown source code first with a real template engine before markdown-parsing. **RenderedMarkdownRenderer** takes a *RendererInterface* instance and any of Carsten Brandt's **[cebe/markdown](https://github.com/cebe/markdown)** flavours.
+
+```php
+<?php
+use Germania\Renderer\TwigRenderer;
+use Germania\Renderer\RenderedMarkdownRenderer;
+use cebe\markdown\Markdown;
+
+// Have a RendererInterface instance at hand,
+// as well as Carsten Brandt's Markdown Parser.
+
+$twig_render = new TwigRenderer( $twig, $logger );
+$markdown = new Markdown;
+
+// Pass them to constructor:
+$rendered_markdown_renderer = new RenderedMarkdownRenderer($twig_render, $markdown);
+
+// Pass file name and variable context:
+echo $rendered_markdown_renderer('twigged_markdown.md', [
+	'foo'  => 'bar',
+	'user' => 'Joe'
+]);
+```
+
+
+
 
 ## Development and Testing
 
