@@ -3,7 +3,7 @@ namespace Germania\Renderer;
 
 use cebe\markdown\Parser;
 
-class RenderedMarkdown implements RendererInterface
+class RenderedMarkdownRenderer implements RendererInterface
 {
 
     /**
