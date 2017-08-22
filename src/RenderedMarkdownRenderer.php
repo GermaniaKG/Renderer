@@ -40,9 +40,10 @@ class RenderedMarkdownRenderer implements RendererInterface
     public function __invoke( $template, array $context = array())
     {
         $renderer = $this->renderer;
-        $markdown_parser = $this->markdown_parser;
 
         $markdown_content = $renderer($template, $context);
+        $markdown_parser = $this->markdown_parser;
+
         return $markdown_parser->parse( $markdown_content );
     }
 
