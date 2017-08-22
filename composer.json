@@ -24,7 +24,8 @@
 
   "suggest": {
       "twig/twig": "The template engine of choice.",
-      "smarty/smarty": "Just in case you missed it in your projects."
+      "smarty/smarty": "Just in case you miss it",
+      "cebe/markdown": "Nice Markdown parser"
   },
 
 	"require": {
@@ -36,7 +37,8 @@
 		"satooshi/php-coveralls": "^1.0",
 		"phpunit/phpunit": "^5.2",
 		"smarty/smarty": "^3.1",
-		"twig/twig": "^1.28"
+		"twig/twig": "^1.28",
+		"cebe/markdown": "^1.1"
 	}
 
 
