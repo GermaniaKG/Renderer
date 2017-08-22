@@ -123,14 +123,14 @@ use cebe\markdown\Markdown;
 // Have a RendererInterface instance at hand,
 // as well as Carsten Brandt's Markdown Parser.
 
-$twig_render = new TwigRenderer( $twig, $logger ) ;
+$twig_render = new TwigRenderer( $twig, $logger );
 $markdown = new Markdown;
 
 // Pass them to constructor:
 $rendered_markdown_renderer = new RenderedMarkdownRenderer($twig_render, $markdown);
 
 // Pass file name and variable context:
-echo $rendered_markdown_renderer('mytwig.md', [
+echo $rendered_markdown_renderer('twigged_markdown.md', [
 	'foo'  => 'bar',
 	'user' => 'Joe'
 ]);
