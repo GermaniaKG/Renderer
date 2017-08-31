@@ -1,6 +1,8 @@
 {
 	"name":        "germania-kg/renderer",
 
+	"description": "Render Callables for PHP files, Twig, Smarty and Markdown",
+
 	"type":        "library",
 	"license":     "MIT",
 
