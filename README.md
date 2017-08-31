@@ -1,8 +1,6 @@
-# Germania\Renderer
+# Germania KG • Renderer
 
-**This package was destilled from legacy code!**   
-You better do not want it to use this in production.
-
+**Render Callables for PHP files, Twig, Smarty and Markdown**
 
 ## Installation
 
