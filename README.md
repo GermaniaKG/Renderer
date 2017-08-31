@@ -2,6 +2,9 @@
 
 **Render Callables for PHP files, Twig, Smarty and Markdown**
 
+[![Build Status](https://travis-ci.org/GermaniaKG/Renderer.svg?branch=master)](https://travis-ci.org/GermaniaKG/Renderer)
+
+
 ## Installation
 
 ```bash
