@@ -3,6 +3,9 @@
 **Render Callables for PHP files, Twig, Smarty and Markdown**
 
 [![Build Status](https://travis-ci.org/GermaniaKG/Renderer.svg?branch=master)](https://travis-ci.org/GermaniaKG/Renderer)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/badges/build.png?b=master)](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/build-status/master)
 
 
 ## Installation
