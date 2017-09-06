@@ -1,4 +1,4 @@
-# Germania KG • Renderer
+# Germania KG · Renderer
 
 **Render Callables for PHP files, Twig, Smarty and Markdown**
 
