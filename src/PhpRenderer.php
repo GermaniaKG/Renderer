@@ -2,15 +2,16 @@
 namespace Germania\Renderer;
 
 use \Psr\Log\LoggerInterface;
+use \Psr\Log\LoggerAwareTrait;
+use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\NullLogger;
 use Psr\Http\Message\ResponseInterface;
 
-class PhpRenderer implements RendererInterface {
 
-    /**
-     * @var LoggerInterface
-     */
-    public $logger;
+
+class PhpRenderer implements RendererInterface, LoggerAwareInterface {
+
+    use LoggerAwareTrait;
 
     /**
      * @var string[]
@@ -31,7 +32,7 @@ class PhpRenderer implements RendererInterface {
             $this->base_path = $base_path;
         endif;
 
-        $this->logger    = $logger    ?: new NullLogger;
+        $this->setLogger( $logger ?: new NullLogger );
     }
 
 

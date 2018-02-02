@@ -3,8 +3,14 @@ namespace Germania\Renderer;
 
 use cebe\markdown\Parser;
 
-class RenderedMarkdownRenderer implements RendererInterface
+use \Psr\Log\LoggerInterface;
+use \Psr\Log\LoggerAwareTrait;
+use \Psr\Log\LoggerAwareInterface;
+
+
+class RenderedMarkdownRenderer implements RendererInterface, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
 
     /**
      * @var RendererInterface
@@ -17,15 +23,15 @@ class RenderedMarkdownRenderer implements RendererInterface
     public $markdown_parser;
 
 
-    /**pu
-
+    /**
      * @param RendererInterface $renderer        RendererInterface instance
      * @param Parser            $markdown_parser Carsten Brandt's cebe/markdown parser
      */
-    public function __construct( RendererInterface $renderer, Parser $markdown_parser )
+    public function __construct( RendererInterface $renderer, Parser $markdown_parser, LoggerInterface $logger = null )
     {
         $this->renderer = $renderer;
         $this->markdown_parser = $markdown_parser;
+        $this->setLogger( $logger ?: new NullLogger );
     }
 
 
@@ -39,6 +45,10 @@ class RenderedMarkdownRenderer implements RendererInterface
      */
     public function __invoke( $template, array $context = array())
     {
+        $this->logger->info("Render template", [
+            'template' => $template
+        ]);
+
         $renderer = $this->renderer;
 
         $markdown_content = $renderer($template, $context);
