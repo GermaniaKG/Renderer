@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class PhpRenderer implements RendererInterface, LoggerAwareInterface {
 
-    use LoggerAwareTrait
+    use LoggerAwareTrait;
 
     /**
      * @var string[]

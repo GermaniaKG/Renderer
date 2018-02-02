@@ -4,6 +4,7 @@ namespace Germania\Renderer;
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\LoggerAwareTrait;
 use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\NullLogger;
 
 class NullRenderer implements RendererInterface, LoggerAwareInterface
 {
