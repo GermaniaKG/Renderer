@@ -1,18 +1,24 @@
 <?php
 namespace Germania\Renderer;
 
-class NullRenderer implements RendererInterface
+use \Psr\Log\LoggerInterface;
+use \Psr\Log\LoggerAwareTrait;
+use \Psr\Log\LoggerAwareInterface;
+
+class NullRenderer implements RendererInterface, LoggerAwareInterface
 {
 
-    public $default_return = null;
+    use LoggerAwareTrait;
 
+    public $default_return = null;
 
     /**
      * @param null $return_value Custom return value, defaults to null.
      */
-    public function __construct( $return_value = null )
+    public function __construct( $return_value = null, LoggerInterface $logger = null )
     {
         $this->default_return = $return_value;
+        $this->setLogger( $logger ?: new NullLogger );
     }
 
 
@@ -26,6 +32,11 @@ class NullRenderer implements RendererInterface
      */
     public function __invoke( $template, array $context = array())
     {
+        $this->logger->info("Null-render template", [
+            'template' => $template,
+            'return' => $this->default_return
+        ]);
         return $this->default_return;
+
     }
 }

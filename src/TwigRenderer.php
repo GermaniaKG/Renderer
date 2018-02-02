@@ -2,19 +2,18 @@
 namespace Germania\Renderer;
 
 use \Psr\Log\LoggerInterface;
+use \Psr\Log\LoggerAwareTrait;
+use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\NullLogger;
 
-class TwigRenderer implements RendererInterface {
+class TwigRenderer implements RendererInterface, LoggerAwareInterface {
+
+    use LoggerAwareTrait;
 
     /**
      * @var Twig_Environment
      */
     public $twig;
-
-    /**
-     * @var LoggerInterface
-     */
-    public $logger;
 
     /**
      * @param \Twig_Environment    $twig   Your Twig_Environment instance
@@ -23,7 +22,7 @@ class TwigRenderer implements RendererInterface {
     public function __construct (\Twig_Environment $twig, LoggerInterface $logger = null )
     {
         $this->twig = $twig;
-        $this->logger = $logger ?: new NullLogger;
+        $this->setLogger( $logger ?: new NullLogger );
     }
 
     /**
