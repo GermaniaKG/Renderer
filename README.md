@@ -2,17 +2,21 @@
 
 **Render Callables for PHP files, Twig, Smarty and Markdown**
 
-[![Build Status](https://travis-ci.org/GermaniaKG/Renderer.svg?branch=master)](https://travis-ci.org/GermaniaKG/Renderer)
+
+[![Packagist](https://img.shields.io/packagist/v/germania-kg/renderer.svg?style=flat)](https://packagist.org/packages/germania-kg/renderer)
+[![PHP version](https://img.shields.io/packagist/php-v/germania-kg/renderer.svg)](https://packagist.org/packages/germania-kg/renderer)
+[![Build Status](https://img.shields.io/travis/GermaniaKG/Renderer.svg?label=Travis%20CI)](https://travis-ci.org/GermaniaKG/Renderer)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/badges/build.png?b=master)](https://scrutinizer-ci.com/g/GermaniaKG/Renderer/build-status/master)
 
 
-## Installation
+## Installation with Composer
 
 ```bash
 $ composer require germania-kg/renderer
 ```
+
 
 ## Usage
 All classes **PhpRenderer, TwigRenderer** and **SmartyRenderer** implement the **RendererInterface**:
@@ -146,21 +150,22 @@ echo $rendered_markdown_renderer('twigged_markdown.md', [
 
 [i0]: https://github.com/GermaniaKG/Renderer/issues 
 
-
 ## Development
 
 ```bash
-$ git clone git@github.com:GermaniaKG/Renderer.git germania-renderer
-$ cd germania-renderer
+$ git clone https://github.com/GermaniaKG/Renderer.git
+$ cd Renderer
 $ composer install
 ```
 
 ## Unit tests
 
-Either copy `phpunit.xml.dist` to `phpunit.xml` and adapt to your needs, or leave as is. 
-Run [PhpUnit](https://phpunit.de/) like this:
+Either copy `phpunit.xml.dist` to `phpunit.xml` and adapt to your needs, or leave as is. Run [PhpUnit](https://phpunit.de/) test or composer scripts like this:
 
 ```bash
+$ composer test
+# or
 $ vendor/bin/phpunit
 ```
+
 
