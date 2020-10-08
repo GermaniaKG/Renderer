@@ -2,6 +2,7 @@
 namespace tests;
 
 use Germania\Renderer\NullRenderer;
+use Germania\Renderer\RendererInterface;
 
 class NullRendererTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,6 +13,7 @@ class NullRendererTest extends \PHPUnit\Framework\TestCase
     public function testSimple( $default_value )
     {
         $sut = new NullRenderer( $default_value );
+        $this->assertInstanceOf(RendererInterface::class, $sut);
 
         $rendered = $sut( "foo.tpl", array() );
         $this->assertEquals( $default_value, $rendered);
