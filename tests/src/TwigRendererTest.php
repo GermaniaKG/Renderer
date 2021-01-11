@@ -5,9 +5,11 @@ use Germania\Renderer\TwigRenderer;
 // use Twig\Environment as TwigEnvironment;
 use \Twig_Environment as TwigEnvironment;
 use \Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class TwigRendererTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
 
     /**
      * @dataProvider provideDefaultValues
