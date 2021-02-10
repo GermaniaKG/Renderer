@@ -2,16 +2,12 @@
 namespace Germania\Renderer;
 
 use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareTrait;
-use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\NullLogger;
 use Psr\Http\Message\ResponseInterface;
 
 
 
-class PhpRenderer implements RendererInterface, LoggerAwareInterface {
-
-    use LoggerAwareTrait;
+class PhpRenderer extends RendererAbstract implements RendererInterface {
 
     /**
      * @var string[]
@@ -37,6 +33,15 @@ class PhpRenderer implements RendererInterface, LoggerAwareInterface {
 
 
     /**
+     * @inheritDoc
+     */
+    public function __invoke( $inc, array $context = array(), Callable $callback = null)
+    {
+        return $this->render( $inc, $context, $callback);
+    }
+
+
+    /**
      * Returns parsed template output.
      *
      * @param  string   $template The template file
@@ -47,7 +52,7 @@ class PhpRenderer implements RendererInterface, LoggerAwareInterface {
      *
      * @throws RuntimeException when include file is not readable somehow.
      */
-    public function __invoke( $inc, array $context = array(), Callable $callback = null)
+    public function render( $inc, array $context = array(), Callable $callback = null) : string
     {
         $this->logger->info("Render PHP include file: " . $inc, [
             'context'   => $context,

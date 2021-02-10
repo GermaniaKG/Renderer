@@ -23,7 +23,7 @@ class NullRendererTest extends \PHPUnit\Framework\TestCase
     public function provideDefaultValues()
     {
         return array(
-            [ null ],
+            [ "" ],
             [ "ABCD" ]
         );
     }
