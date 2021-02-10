@@ -2,13 +2,10 @@
 namespace Germania\Renderer;
 
 use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareTrait;
-use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\NullLogger;
 
-class SmartyRenderer implements RendererInterface, LoggerAwareInterface {
+class SmartyRenderer extends RendererAbstract implements RendererInterface {
 
-    use LoggerAwareTrait;
 
     /**
      * @var Smarty
@@ -22,14 +19,25 @@ class SmartyRenderer implements RendererInterface, LoggerAwareInterface {
      */
     public function __construct (\Smarty $smarty, LoggerInterface $logger = null )
     {
-        $this->smarty = $smarty;
+        $this->setSmarty( $smarty );
         $this->setLogger( $logger ?: new NullLogger );
     }
 
+
     /**
-     * {@inheritDoc }
+     * @param \Smarty              $smarty Your Smarty instance
      */
-    public function __invoke( $template, array $context = array())
+    public function setSmarty( \Smarty $smarty ) : self
+    {
+        $this->smarty = $smarty;
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function render( $template, array $context = array()) : string
     {
         $this->logger->info("Render Smarty template: " . $template, [
             'context'  => $context

@@ -11,5 +11,11 @@ interface RendererInterface
      *
      * @return string Template output
      */
+    public function render( $template, array $context = array()) : string;
+
+
+    /**
+     * Callable alias for `render()`
+     */
     public function __invoke( $template, array $context = array());
 }

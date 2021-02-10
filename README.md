@@ -19,21 +19,23 @@ $ composer require germania-kg/renderer
 
 
 ## Usage
-All classes **PhpRenderer, TwigRenderer** and **SmartyRenderer** implement the **RendererInterface**:
+All classes **PhpRenderer, TwigRenderer**, **RenderedMarkdownRenderer**, and **SmartyRenderer** extend `\Germania\Renderer\RendererAbstract` and implement the **RendererInterface**:
 
 ```php
-
 interface RendererInterface {
     /**
      * @param  string   $template   The template file
      * @param  array    $context    Associative template variables array
      * @return string   Template output
      */	
-     public function __invoke( $template, array $context = array());
+     public function render( $template, array $context = array()) : string
+  
+    /**
+     * Callable alias for render()
+     */	
+     public function __invoke( $template, array $context = array())
 }
 ```
-
-
 
 ## PhpRenderer
 
@@ -148,7 +150,7 @@ echo $rendered_markdown_renderer('twigged_markdown.md', [
 
 …As always, some documentation missing here and there. Stay up to date on [issues list.][i0]
 
-[i0]: https://github.com/GermaniaKG/Renderer/issues 
+[i0]: https://github.com/GermaniaKG/Renderer/issues
 
 ## Development
 

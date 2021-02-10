@@ -4,47 +4,45 @@ namespace Germania\Renderer;
 use cebe\markdown\Parser;
 
 use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareTrait;
-use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\NullLogger;
 
 
-class RenderedMarkdownRenderer implements RendererInterface, LoggerAwareInterface
+class RenderedMarkdownRenderer extends RendererAbstract implements RendererInterface, RendererAwareInterface
 {
-    use LoggerAwareTrait;
+    use RendererAwareTrait;
 
     /**
-     * @var RendererInterface
-     */
-    public $renderer;
-
-    /**
-     * @var Parser
+     * @var \cebe\markdown\Parser
      */
     public $markdown_parser;
 
 
     /**
-     * @param RendererInterface $renderer        RendererInterface instance
-     * @param Parser            $markdown_parser Carsten Brandt's cebe/markdown parser
+     * @param RendererInterface      $renderer        RendererInterface instance
+     * @param \cebe\markdown\Parser  $markdown_parser Carsten Brandt's cebe/markdown parser
      */
     public function __construct( RendererInterface $renderer, Parser $markdown_parser, LoggerInterface $logger = null )
     {
-        $this->renderer = $renderer;
-        $this->markdown_parser = $markdown_parser;
+        $this->setRenderer($renderer);
+        $this->setMarkdownParser($markdown_parser);
         $this->setLogger( $logger ?: new NullLogger );
     }
 
 
     /**
-     * Returns parsed template output.
-     *
-     * @param  string $template The template file
-     * @param  array  $context  Associative template variables array
-     *
-     * @return string Template output
+     * @param \cebe\markdown\Parser $markdown_parser Carsten Brandt's cebe/markdown parser
      */
-    public function __invoke( $template, array $context = array())
+    public function setMarkdownParser( Parser $markdown_parser ) : static
+    {
+        $this->markdown_parser = $markdown_parser;
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function render( $template, array $context = array()) : string
     {
         $this->logger->info("Render template", [
             'template' => $template
