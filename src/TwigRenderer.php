@@ -1,23 +1,23 @@
 <?php
 namespace Germania\Renderer;
 
-use \Psr\Log\LoggerInterface;
-use \Psr\Log\NullLogger;
-use Twig_Environment;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Twig\Environment as TwigEnvironment;
 
 class TwigRenderer extends RendererAbstract implements RendererInterface {
 
 
     /**
-     * @var Twig_Environment
+     * @var \Twig\Environment
      */
     public $twig;
 
     /**
-     * @param \Twig_Environment    $twig   Your Twig_Environment instance
+     * @param \Twig_Environment    $twig   Your Twig\Environment instance
      * @param LoggerInterface|null $logger Optional: PSR-3 Logger
      */
-    public function __construct (Twig_Environment $twig, LoggerInterface $logger = null )
+    public function __construct (TwigEnvironment $twig, LoggerInterface $logger = null )
     {
         $this->setTwig($twig);
         $this->setLogger( $logger ?: new NullLogger );
@@ -25,9 +25,9 @@ class TwigRenderer extends RendererAbstract implements RendererInterface {
 
 
     /**
-     * @param \Twig_Environment    $twig   Your Twig_Environment instance
+     * @param \Twig\Environment    $twig   Your TwigEnvironment instance
      */
-    public function setTwig(Twig_Environment $twig)  : self
+    public function setTwig(TwigEnvironment $twig)  : self
     {
         $this->twig = $twig;
         return $this;

@@ -41,7 +41,7 @@
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.0",
         "smarty/smarty": "^3.1.39",
-        "twig/twig": "^1.28|^2.0",
+        "twig/twig": "^2.0|^3.0",
         "cebe/markdown": "^1.2"
     },
 
