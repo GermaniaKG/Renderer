@@ -1,27 +1,27 @@
 {
-	"name":        "germania-kg/renderer",
+    "name": "germania-kg/renderer",
 
-	"description": "Render Callables for PHP files, Twig, Smarty and Markdown",
+    "description": "Render Callables for PHP files, Twig, Smarty and Markdown",
 
-	"type":        "library",
-	"license":     "MIT",
+    "type": "library",
+    "license": "MIT",
 
-	"authors": [
-		{
-			"name":  "Carsten Witt",
-			"email": "admin@germania-kg.com",
-			"role":  "Developer"
-		}
-	],
+    "authors": [{
+        "name": "Carsten Witt",
+        "email": "admin@germania-kg.com",
+        "role": "Developer"
+    }],
 
-	"autoload": {
-			"psr-4": {
-					"Germania\\Renderer\\": "src/"
-			}
-	},
+    "autoload": {
+        "psr-4": {
+            "Germania\\Renderer\\": "src/"
+        }
+    },
 
     "autoload-dev": {
-        "psr-4": { "tests\\": "tests/src" }
+        "psr-4": {
+            "tests\\": "tests/src"
+        }
     },
 
     "suggest": {
@@ -30,20 +30,20 @@
         "cebe/markdown": "Nice Markdown parser"
     },
 
-		"require": {
-			"php": "^7.3|^8.0",
-			"psr/log": "^1.0",
-			"psr/http-message": "^1.0"
-		},
+    "require": {
+        "php": "^7.3|^8.0",
+        "psr/log": "^1.0",
+        "psr/http-message": "^1.0"
+    },
 
-		"require-dev": {
-	        "php-coveralls/php-coveralls": "^2.0",
-	        "phpspec/prophecy-phpunit": "^2.0",
-	        "phpunit/phpunit": "^9.0",
-					"smarty/smarty": "^3.1",
-					"twig/twig": "^1.28|^2.0",
-					"cebe/markdown": "^1.2"
-		},
+    "require-dev": {
+        "php-coveralls/php-coveralls": "^2.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^9.0",
+        "smarty/smarty": "^3.1.39",
+        "twig/twig": "^1.28|^2.0",
+        "cebe/markdown": "^1.2"
+    },
 
     "scripts": {
         "phpunit": "phpunit",
