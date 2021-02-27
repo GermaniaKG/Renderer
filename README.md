@@ -17,8 +17,14 @@
 $ composer require germania-kg/renderer
 ```
 
+```json
+"require": {
+    "germania-kg/renderer":"^1.0|^2.0"
+}
+```
 
 ## Usage
+
 All classes **PhpRenderer, TwigRenderer**, **RenderedMarkdownRenderer**, and **SmartyRenderer** extend `\Germania\Renderer\RendererAbstract` and implement the **RendererInterface**:
 
 ```php
