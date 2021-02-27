@@ -19,9 +19,11 @@ $ composer require germania-kg/renderer
 
 ```json
 "require": {
-    "germania-kg/renderer":"^1.0|^2.0"
+    "germania-kg/renderer":"^1.0|^2.0|^3.0"
 }
 ```
+
+**The v3 release of germania-kg/renderer supports Twig v2 and v3**.
 
 ## Usage
 
