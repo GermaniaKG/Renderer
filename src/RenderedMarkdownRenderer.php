@@ -32,7 +32,7 @@ class RenderedMarkdownRenderer extends RendererAbstract implements RendererInter
     /**
      * @param \cebe\markdown\Parser $markdown_parser Carsten Brandt's cebe/markdown parser
      */
-    public function setMarkdownParser( Parser $markdown_parser ) : static
+    public function setMarkdownParser( Parser $markdown_parser )
     {
         $this->markdown_parser = $markdown_parser;
         return $this;
