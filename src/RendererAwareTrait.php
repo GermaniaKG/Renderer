@@ -13,7 +13,7 @@ trait RendererAwareTrait
     /**
      * @param \Germania\Renderer\RendererInterface $renderer
      */
-    public function setRenderer( RendererInterface $renderer ) : static
+    public function setRenderer( RendererInterface $renderer )
     {
         $this->renderer = $renderer;
         return $this;
